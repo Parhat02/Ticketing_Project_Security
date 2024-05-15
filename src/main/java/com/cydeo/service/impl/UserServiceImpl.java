@@ -2,6 +2,7 @@ package com.cydeo.service.impl;
 
 import com.cydeo.dto.UserDTO;
 import com.cydeo.entity.User;
+import com.cydeo.mapper.UserMapper;
 import com.cydeo.repository.UserRepository;
 import com.cydeo.service.UserService;
 import org.springframework.data.domain.Sort;
@@ -13,16 +14,18 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
     public List<UserDTO> listAllUsers() {
 
         List<User>  userList=userRepository.findAll((Sort.by("firstName")));
-        return null;
+        return userList.stream().map(userMapper::convertToDto).toList();
     }
 
     @Override
