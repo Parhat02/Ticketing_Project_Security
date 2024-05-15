@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     void deleteByUserName(String userName);
+
+    //List<User> findAllByIsDeleted(Boolean isDeleted);
 }
