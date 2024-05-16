@@ -43,6 +43,16 @@ public class UserDTO {
     @NotNull
     private Gender gender;
 
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getPassWord() {
         return passWord;
     }
