@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //List<User> findAllByIsDeleted(Boolean isDeleted);
 
     List<User> findByRoleDescriptionIgnoreCase(String description);
+
+
 }
