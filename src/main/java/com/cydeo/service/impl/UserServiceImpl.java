@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
 
         if (checkIfUserCanBeDeleted(user1)){
             user1.setIsDeleted(true);
+            user1.setUserName(user1.getUserName()+"-"+user1.getId());
             userRepository.save(user1);
         }
 
