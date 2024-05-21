@@ -62,4 +62,14 @@ public class TaskServiceImpl implements TaskService {
         Optional<Task> task = taskRepository.findById(id);
         return task.map(taskMapper::convertToDto).orElse(null);
     }
+
+    @Override
+    public int totalNonCompletedTask(String projectCode) {
+        return taskRepository.totalNonCompletedTask(projectCode);
+    }
+
+    @Override
+    public int totalCompletedTask(String projectCode) {
+        return taskRepository.totalCompletedTask(projectCode);
+    }
 }
