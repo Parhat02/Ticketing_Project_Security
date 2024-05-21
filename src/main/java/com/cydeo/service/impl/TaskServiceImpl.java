@@ -48,7 +48,7 @@ public class TaskServiceImpl implements TaskService {
         Task convertedTask = taskMapper.convertToEntity(dto);
         if (task.isPresent()){
             convertedTask.setAssignedDate(task.get().getAssignedDate());
-            convertedTask.setTaskStatus(task.get().getTaskStatus());
+            convertedTask.setTaskStatus(dto.getTaskStatus()==null ? task.get().getTaskStatus(): dto.getTaskStatus());
             taskRepository.save(convertedTask);
         }
     }
@@ -83,5 +83,15 @@ public class TaskServiceImpl implements TaskService {
         Project project = projectMapper.convertToEntity(projectDTO);
         List<Task> tasks = taskRepository.findAllByProject(project);
         tasks.forEach(task -> delete(task.getId()));
+    }
+
+    @Override
+    public void completeByProject(ProjectDTO projectDTO) {
+        Project project = projectMapper.convertToEntity(projectDTO);
+        List<Task> tasks = taskRepository.findAllByProject(project);
+        tasks.stream().map(taskMapper::convertToDto).forEach(taskDTO -> {
+            taskDTO.setTaskStatus(Status.COMPLETE);
+            update(taskDTO);
+        });
     }
 }
