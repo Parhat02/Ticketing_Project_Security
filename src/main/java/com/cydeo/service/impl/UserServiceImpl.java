@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDTO user) {
+        user.setEnabled(true);
         User user1 = userMapper.convertToEntity(user);
         user1.setPassWord(passwordEncoder.encode(user1.getPassWord()));
         userRepository.save(user1);
